@@ -1,9 +1,6 @@
 const express = require("express");
 const logger = require("morgan");
 const mongoose = require("mongoose");
-const axios = require("axios");
-const cheerio = require("cheerio");
-const db = require("./models");
 const app = express();
 
 const PORT = process.env.PORT || 3001;
@@ -18,13 +15,14 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/dist"));
 }
 
-var routes = require("./routes/api-routes.js")(app);
+var routes = require("./routes/api-routes.js");
 
-// app.use(routes);
+app.use(routes);
+
 
 // mongoose.connect("mongodb://localhost/mongoHeadlines", { useNewUrlParser: true });
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
-mongoose.connect(MONGODB_URI);
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
 app.listen(PORT, function() {
   console.log(`🌎 ==> API server now on port ${PORT}!`);

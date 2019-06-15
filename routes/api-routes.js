@@ -1,15 +1,15 @@
 const db = require("../models");
 const cheerio = require("cheerio");
 const axios = require("axios");
+var express = require("express")
+var router = express.Router();
 
-module.exports = function (app) {
 
-    app.get("/api/scrape/", function (req, res) {
+
+    router.get("/api/scrape/", function (req, res) {
 
         axios.get("https://www.gamespot.com/news/").then(function (response) {
             var $ = cheerio.load(response.data);
-
-
 
             $("article.media-article").each(function (i, element) {
 
@@ -22,27 +22,14 @@ module.exports = function (app) {
 
                 db.Article.create(result)
                     .then(function (dbArticle) {
+                        res.send("Scrape Complete");
                         console.log(dbArticle);
                     })
                     .catch(function (err) {
                         console.log(err);
-                    });
-                    
+                    });                    
             });
-            res.send("Scrape Complete");
-
         });
+    });
 
-
-
-
-
-
-
-
-
-
-    })
-
-
-};
+module.exports = router;
