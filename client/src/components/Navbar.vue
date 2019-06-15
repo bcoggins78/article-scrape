@@ -8,7 +8,7 @@
         <v-icon>save</v-icon>
         <v-btn flat class="mr-5">Saved Aricles</v-btn>
         <v-icon>get_app</v-icon>
-        <v-btn flat class="mr-5">Scrape New Articles!</v-btn>
+        <v-btn flat class="mr-5" @click = "scrape">Scrape New Articles!</v-btn>
         <v-icon>delete_forever</v-icon>
         <v-btn flat class="mr-5">Clear Aricles</v-btn>
       </v-toolbar-items>
@@ -17,8 +17,23 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
-  name: "Navbar"
+  name: "Navbar",
+  
+  methods: {
+    scrape: function() {
+
+      axios.get('/api/scrape/').then(
+        function(response) {
+        
+          console.log("Scraping Complete")
+        }.bind(this)
+      )}
+      
+    
+  }
 };
 </script>
 

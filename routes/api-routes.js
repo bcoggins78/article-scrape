@@ -1,13 +1,10 @@
 const db = require("../models");
 const cheerio = require("cheerio");
 const axios = require("axios");
-var mongoose = require("mongoose");
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
-mongoose.connect(MONGODB_URI);
 
 module.exports = function (app) {
 
-    app.get("/scrape", function (req, res) {
+    app.get("/api/scrape/", function (req, res) {
 
         axios.get("https://www.gamespot.com/news/").then(function (response) {
             var $ = cheerio.load(response.data);
