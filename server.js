@@ -19,7 +19,7 @@ if (process.env.NODE_ENV === "production") {
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-require("./routes/api-routes.js");
+require("./routes/api-routes.js")(app);
 
 // mongoose.connect("mongodb://localhost/mongoHeadlines", { useNewUrlParser: true });
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
