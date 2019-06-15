@@ -1,7 +1,9 @@
 const db = require("../models");
 const cheerio = require("cheerio");
 const axios = require("axios");
-
+var mongoose = require("mongoose");
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+mongoose.connect(MONGODB_URI);
 
 module.exports = function (app) {
 
@@ -17,7 +19,7 @@ module.exports = function (app) {
                 var result = {};
 
                 result.title = $(this).find("h3.media-title").text();
-                result.link = $(this).children("a").attr("href");
+                result.url = "https://www.gamespot.com" + $(this).children("a").attr("href");
                 result.desc = $(this).find(".media-deck").text();
                 result.img = $(this).find("img").attr("src");
 
@@ -28,7 +30,9 @@ module.exports = function (app) {
                     .catch(function (err) {
                         console.log(err);
                     });
+                    
             });
+            res.send("Scrape Complete");
 
         });
 
