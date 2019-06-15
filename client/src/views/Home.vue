@@ -1,13 +1,20 @@
 <template>
-  <HelloWorld />
+  <div class="home">
+    <span>This is the Home Page</span>
+  </div>
 </template>
 
 <script>
-  import HelloWorld from '../components/HelloWorld'
 
   export default {
-    components: {
-      HelloWorld
+    name: "Home",
+    data() {
+      return {
+
+        articles: []
+        
+      }
     }
   }
 </script>
+
