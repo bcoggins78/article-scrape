@@ -6,7 +6,8 @@ var router = express.Router();
 
 
 
-    router.get("/api/scrape/", function (req, res) {
+
+    router.get("/scrape", function (req, res) {
 
         axios.get("https://www.gamespot.com/news/").then(function (response) {
             var $ = cheerio.load(response.data);
@@ -22,14 +23,25 @@ var router = express.Router();
 
                 db.Article.create(result)
                     .then(function (dbArticle) {
-                        res.send("Scrape Complete");
                         console.log(dbArticle);
                     })
                     .catch(function (err) {
                         console.log(err);
                     });                    
             });
+            res.send("Scrape Complete");
         });
+    });
+
+    router.get("/articles", function(req, res) {
+
+        db.Article.find({})
+            .then(function(dbArticle) {
+                res.json(dbArticle);
+            })
+            .catch(function(err) {
+                res.json(err);
+            });
     });
 
 module.exports = router;
