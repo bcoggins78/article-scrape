@@ -6,7 +6,7 @@ var router = express.Router();
 
 
 
-
+    // Scrapte the gamespot website and add articles to MongoDB
     router.get("/scrape", function (req, res) {
 
         axios.get("https://www.gamespot.com/news/").then(function (response) {
@@ -33,7 +33,8 @@ var router = express.Router();
         });
     });
 
-    router.get("/articles", function(req, res) {
+    // Retrieve articles from MongoDB
+    router.get("/api/articles", function(req, res) {
 
         db.Article.find({})
             .then(function(dbArticle) {
@@ -43,5 +44,30 @@ var router = express.Router();
                 res.json(err);
             });
     });
+
+    router.delete('/api/deleteArticles', (req, res) => {
+        
+        db.Article.deleteMany({})
+            .then(function(dbArticle) {
+                res.json(dbArticle);
+                console.log("Articles Cleared")
+            })
+            .catch(function(err) {
+                res.json(err);
+            });
+      });
+
+    router.put('/api/saveArticle/:id', (req, res) => {
+
+        const id = req.params.id;
+
+        db.Article.findOneAndUpdate({ _id: id }, { $set: { saved: true}}, { new: true })
+            .then(function(dbArticle) {
+                res.json(dbArticle);
+            })
+            .catch(function(err) {
+                res.json(err);
+            })
+    })
 
 module.exports = router;
