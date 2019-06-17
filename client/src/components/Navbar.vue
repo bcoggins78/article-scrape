@@ -5,34 +5,57 @@
       <v-toolbar-title>Mongo Scraper</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">
-        <v-icon>save</v-icon>
-        <v-btn flat class="mr-5">Saved Aricles</v-btn>
-        <v-icon>get_app</v-icon>
-        <v-btn flat class="mr-5" @click = "scrape">Scrape New Articles!</v-btn>
-        <v-icon>delete_forever</v-icon>
-        <v-btn flat class="mr-5">Clear Aricles</v-btn>
+
+        <v-btn flat class="mr-5" @click="goHome">
+          <v-icon class="mr-1">home</v-icon>Home
+        </v-btn>
+
+        <v-btn flat class="mr-5" @click="goSaved">
+          <v-icon class="mr-1">save</v-icon>Saved Articles
+        </v-btn>
+
+        <v-btn flat class="mr-5" @click="scrape">
+          <v-icon class="mr-1">get_app</v-icon>Scrape New Articles!
+        </v-btn>
+
+        <v-btn flat class="mr-5" @click="clearArticles">
+          <v-icon class="mr-1">delete_forever</v-icon>Clear Articles
+        </v-btn>
+
       </v-toolbar-items>
     </v-toolbar>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
+import axios from "axios";
 
 export default {
   name: "Navbar",
-  
   methods: {
     scrape: function() {
-
-      axios.get('/scrape').then(
+      axios.get("/scrape").then(
         function(response) {
-        
-          console.log("Scraping Complete")
+          console.log("Scraping Complete");
         }.bind(this)
-      )}
-      
-    
+      );
+      setTimeout(() => this.$emit('render'), 1500);
+    },
+    clearArticles: function() {
+      console.log("clearArticles is being called in Navbar");
+      axios.delete("/api/deleteArticles").then(
+        function(response) {
+          console.log("Articles Cleared");
+        }.bind(this)
+      );
+      this.$emit('clear')
+    },
+    goSaved: function() {
+      this.$router.push('/saved');
+    },
+    goHome: function() {
+      this.$router.push('/');
+    }
   }
 };
 </script>
