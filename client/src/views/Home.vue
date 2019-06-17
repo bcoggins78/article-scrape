@@ -1,10 +1,11 @@
 <template>
   <div class="home">
+    <Navbar @render='renderArticles' @clear='clearArticles'></Navbar>
     <v-container align-content-center class="my-5">
       <v-layout row wrap>
         <v-flex v-for="article in articles" :key="article.title">
           <v-card>
-            <v-img :src="article.img" height=200 width=400></v-img>
+            <v-img :src="article.img" height="200" width="400"></v-img>
 
             <v-card-title primary-title>
               <div>
@@ -14,10 +15,10 @@
             </v-card-title>
 
             <v-card-actions>
-              <v-btn flat :href="article.url" target="_blank">Go to Article</v-btn>
+              <v-btn flat :href="article.url" target="_blank">Open Article</v-btn>
+              <v-btn @click="saveArticle" flat color="green">Save Article</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
-
           </v-card>
         </v-flex>
       </v-layout>
@@ -26,31 +27,44 @@
 </template>
 
 <script>
-import axios from 'axios'
+import Navbar from "@/components/Navbar";
+import axios from "axios";
 export default {
   name: "Home",
+  components: {
+    Navbar
+  },
   mounted() {
-    
-    var art = this
-    axios.get("/articles", function(response) {
-          })
-          .then(function(response) {
-            console.log(response);
-            art.articles = art.articles.concat(response.data);            
-          }).catch(function(err){
-            console.log(err);
-          })
+    this.renderArticles();
     
   },
   data() {
     return {
       articles: [],
-      show: false,
-      methods: {
-        
+      
+    };
+  },
+  methods: {
+        renderArticles: function() {
+          var art = this;
+          axios
+            .get("/api/articles", function(response) {})
+            .then(function(response) {
+              console.log(response);
+              art.articles = art.articles.concat(response.data);
+            })
+            .catch(function(err) {
+              console.log(err);
+            });
+        },
+        clearArticles: function() {
+          this.articles = [];
+        },
+        saveArticle: function() {
+          // axios.put("/api/saveArticle/:id")
+          console.log(this.articles._id)
+        }
       }
-    }
-  }
 };
 </script>
 
