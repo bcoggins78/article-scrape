@@ -45,6 +45,7 @@ var router = express.Router();
             });
     });
 
+    // Route to delete any un-saved articles
     router.delete('/api/deleteArticles', (req, res) => {
         
         db.Article.deleteMany({ saved: false })
@@ -56,7 +57,8 @@ var router = express.Router();
                 res.json(err);
             });
       });
-
+    
+    // Route to update Article saved status to true
     router.put('/api/saveArticle/:id', (req, res) => {
 
         const id = req.params.id;
