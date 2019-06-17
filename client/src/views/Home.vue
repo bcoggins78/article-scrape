@@ -1,10 +1,10 @@
 <template>
   <div class="home">
     <Navbar @render='renderArticles' @clear='clearArticles'></Navbar>
-    <v-container align-content-center class="my-5">
-      <v-layout row wrap>
-        <v-flex v-for="article in articles" :key="article.title">
-          <v-card>
+    <v-container class="my-5">
+      <v-layout wrap>
+        <v-flex xs12 xm6 class="mb-5" v-for="article in articles" :key="article.title">
+          <v-card v-if="article.saved === false">
             <v-img :src="article.img" height="200" width="400"></v-img>
 
             <v-card-title primary-title>
@@ -15,8 +15,8 @@
             </v-card-title>
 
             <v-card-actions>
-              <v-btn flat :href="article.url" target="_blank">Open Article</v-btn>
-              <v-btn @click="saveArticle" flat color="green">Save Article</v-btn>
+              <v-btn flat :href="article.url" color="blue" target="_blank"><v-icon class="mr-1">open_in_browser</v-icon>Open Article</v-btn>
+              <v-btn @click="saveArticle" flat color="green"><v-icon class="mr-1">save</v-icon>  Save Article</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
@@ -36,12 +36,10 @@ export default {
   },
   mounted() {
     this.renderArticles();
-    
   },
   data() {
     return {
-      articles: [],
-      
+      articles: [],  
     };
   },
   methods: {
@@ -61,10 +59,22 @@ export default {
           this.articles = [];
         },
         saveArticle: function() {
-          // axios.put("/api/saveArticle/:id")
+          axios.put("/api/saveArticle/:id", function(response) {})
           console.log(this.articles._id)
+        }
+      },
+      computed: {
+        renderSaved: function() {
+          return this.articles.filter(function(u) {
+            return u.saved
+          })
         }
       }
 };
 </script>
 
+<style>
+.container {
+  max-width: 900px;
+}
+</style>

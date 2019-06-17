@@ -1,9 +1,9 @@
 <template>
   <div class="home">
     <Navbar></Navbar>
-    <v-container align-content-center class="my-5">
-      <v-layout row wrap>
-        <v-flex v-for="article in articles" :key="article._id">
+    <v-container class="my-5">
+      <v-layout wrap>
+        <v-flex xs12 xm6 class="mt-5" v-for="article in articles" :key="article._id">
           <v-card v-if="article.saved">
             <v-img :src="article.img" height="200" width="400"></v-img>
 
@@ -15,8 +15,8 @@
             </v-card-title>
 
             <v-card-actions>
-              <v-btn flat :href="article.url" target="_blank">Open Article</v-btn>
-              <v-btn flat>Delete Article</v-btn>
+              <v-btn flat :href="article.url" color="blue" target="_blank"><v-icon class="mr-1">open_in_browser</v-icon>Open Article</v-btn>
+              <v-btn flat color="red"><v-icon class="mr-1">clear</v-icon>Delete Article</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
@@ -35,22 +35,16 @@ export default {
     Navbar
   },
   mounted() {
-    let art = this;
-    axios
-      .get("/api/articles", function(response) {})
-      .then(function(response) {
-        console.log(response);
-        art.articles = art.articles.concat(response.data);
-      })
-      .catch(function(err) {
-        console.log(err);
-      });
+    this.renderArticles();
   },
   data() {
     return {
       articles: [],
-      methods: {
-        renderArticls: function() {
+    }
+  },
+  methods: {
+        renderArticles: function() {
+          this.articles = []
           var art = this;
           axios
             .get("/api/articles", function(response) {})
@@ -61,10 +55,8 @@ export default {
             .catch(function(err) {
               console.log(err);
             });
-            console.log("Articles Rendered")
         },
         clearArticles: function() {
-          console.log("clearArticles is being called in Home")
           this.articles = [];
         }
       },
@@ -75,8 +67,6 @@ export default {
           })
         }
       }
-    };
-  }
 };
 </script>
 
