@@ -1,6 +1,7 @@
 const express = require("express");
 const logger = require("morgan");
 const mongoose = require("mongoose");
+const dotenv = require('dotenv');
 const PORT = process.env.PORT || 3001;
 
 const app = express();
@@ -22,7 +23,8 @@ app.get('/api/test', function(req, res) {
 var routes = require("./routes/api-routes.js");
 app.use(routes);
 
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadLines";
+console.log(MONGODB_URI)
 mongoose.connect(MONGODB_URI);
 
 app.listen(PORT, function() {

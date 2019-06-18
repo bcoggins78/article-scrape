@@ -60,7 +60,7 @@ export default {
         },
         saveArticle: function() {
           axios.put("/api/saveArticle/:id", function(response) {})
-          console.log(this.articles._id)
+          console.log(this.articles[0]._id)
         }
       },
       computed: {
