@@ -12,20 +12,18 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/dist"));
 }
 
+// Middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// Sample API
-app.get('/api/test', function(req, res) {
-  res.json({ greeting: 'Welcome to your Vue App' });
-});
-
+// Location of api routes
 var routes = require("./routes/api-routes.js");
 app.use(routes);
 
+// MongoDB connection parameters
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadLines";
-console.log(MONGODB_URI)
 mongoose.connect(MONGODB_URI);
+
 
 app.listen(PORT, function() {
   console.log(`🌎 ==> API server now on port ${PORT}!`);

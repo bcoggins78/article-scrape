@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app class="app">
     <router-view/>
   </v-app>
 </template>
@@ -15,3 +15,14 @@ export default {
   }
 }
 </script>
+
+<style>
+
+/* Styling for background image */
+.home, .saved{
+  background-image: url("./assets/sunrise.jpg");
+  background-size: cover;
+  min-height: 100vh;
+  background-attachment: fixed;
+}
+</style>
