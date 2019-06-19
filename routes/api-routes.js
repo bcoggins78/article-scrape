@@ -6,7 +6,7 @@ var router = express.Router();
 
 
 
-    // Scrapte the gamespot website and add articles to MongoDB
+    // Scrapte the space.com website and add articles to MongoDB
     router.get("/scrape", function (req, res) {
 
         axios.get("https://www.space.com/news").then(function (response) {
@@ -61,7 +61,7 @@ var router = express.Router();
     // Route to update Article saved status to true
     router.put('/api/saveArticle/:id', (req, res) => {
 
-        const id = req.params.id;
+        let id = req.params.id;
 
         db.Article.findOneAndUpdate({ _id: id }, { $set: { saved: true}}, { new: true })
             .then(function(dbArticle) {
@@ -89,6 +89,19 @@ var router = express.Router();
             // If an error occurred, send it to the client
             res.json(err);
           });
-      });
+    });
+
+    router.delete('/api/deleteArticle/:id', (req, res) => {
+
+        let id = req.params.id;
+
+        db.Article.findOneAndDelete({ _id: id })
+            .then(function(dbArticle) {
+                res.json(dbArticle);
+            })
+            .catch(function(err) {
+                res.json(err);
+            });
+    });
 
 module.exports = router;

@@ -6,19 +6,19 @@
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">
 
-        <v-btn flat class="mr-5" @click="goHome">
+        <v-btn flat class="mr-4" @click="goHome">
           <v-icon class="mr-1">home</v-icon>Home
         </v-btn>
 
-        <v-btn flat class="mr-5" @click="goSaved">
+        <v-btn flat class="mr-4" @click="goSaved">
           <v-icon class="mr-1">save</v-icon>Saved Articles
         </v-btn>
 
-        <v-btn flat class="mr-5" @click="scrape">
+        <v-btn flat class="mr-4" @click="scrape">
           <v-icon class="mr-1">get_app</v-icon>Scrape New Articles!
         </v-btn>
 
-        <v-btn flat class="mr-5" @click="clearArticles">
+        <v-btn flat class="mr-4" @click="clearArticles">
           <v-icon class="mr-1">delete_forever</v-icon>Clear Articles
         </v-btn>
 
