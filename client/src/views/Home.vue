@@ -5,17 +5,20 @@
       <v-layout wrap>
         <v-flex xs12 xm6 class="mb-5" v-for="article in articles" :key="article.title">
           <v-card v-if="article.saved === false">
-            <v-img :src="article.img" height="200" width="400"></v-img>
+            <!-- <v-img :src="article.img" height="200" width="400"></v-img> -->
+            <v-img src="https://static.gamespot.com/uploads/screen_small/1578/15787979/3549953-3689163597-34002.jpg" height="200" width="400"></v-img>
 
             <v-card-title primary-title>
               <div>
                 <div class="headline">{{ article.title}}</div>
-                <span class="grey--text">{{ article.desc }}</span>
+                <!-- <span class="grey--text">{{ article.desc }}</span> -->
+                <span class="grey--text">Testing Testing 123</span>
               </div>
             </v-card-title>
 
             <v-card-actions>
-              <v-btn flat :href="article.url" color="blue" target="_blank"><v-icon class="mr-1">open_in_browser</v-icon>Open Article</v-btn>
+              <v-btn flat href="https://www.gamespot.com/articles/the-division-2-update-out-now-adds-new-gunner-spec/1100-6467876/" color="blue" target="_blank"><v-icon class="mr-1">open_in_browser</v-icon>Open Article</v-btn>
+              <!-- <v-btn flat :href="article.url" color="blue" target="_blank"><v-icon class="mr-1">open_in_browser</v-icon>Open Article</v-btn> -->
               <v-btn @click="saveArticle" flat color="green"><v-icon class="mr-1">save</v-icon>  Save Article</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
