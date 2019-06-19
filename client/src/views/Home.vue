@@ -61,18 +61,19 @@ export default {
         clearArticles: function() {
           this.articles = [];
         },
+
         saveArticle: function(articleid, event) {
           axios.put("/api/saveArticle/"+articleid, function(response) {})
           .then(function(response) {
             console.log(articleid);
             console.log(JSON.stringify(response));
-            
           })
           .catch(function(err) {
             console.log(err);
           })
-          this.renderArticles()
+          setTimeout(() => this.renderArticles(), 1000);
         },
+
         deleteArticle: function(articleid, event) {
           axios.delete("/api/deleteArticle/"+articleid, function(response) {})
           .then(function(response) {
@@ -83,7 +84,7 @@ export default {
           .catch(function(err) {
             console.log(err);
           })
-          this.renderArticles()
+          setTimeout(() => this.renderArticles(), 1000);
         }
       },
       computed: {

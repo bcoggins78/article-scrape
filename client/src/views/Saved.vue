@@ -69,7 +69,7 @@ export default {
           .catch(function(err) {
             console.log(err);
           })
-          this.renderArticles()
+          setTimeout(() => this.renderArticles(), 1000);
         }
       },
       computed: {
