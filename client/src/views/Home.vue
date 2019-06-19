@@ -15,11 +15,11 @@
             </v-card-title>
 
             <v-card-actions>
-              <!-- <v-btn flat href="www.google.com" color="blue" target="_blank"><v-icon class="mr-1">open_in_browser</v-icon>Open Article</v-btn> -->
               <v-btn flat :href="article.url" color="blue" target="_blank"><v-icon class="mr-1">open_in_browser</v-icon>Open Article</v-btn>
-              <v-btn @click="saveArticle" flat color="green"><v-icon class="mr-1">save</v-icon>  Save Article</v-btn>
+              <v-btn @click="saveArticle(article._id)" flat color="green"><v-icon class="mr-1">save</v-icon>  Save Article</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
+               
           </v-card>
         </v-flex>
       </v-layout>
@@ -46,6 +46,7 @@ export default {
   methods: {
         renderArticles: function() {
           var art = this;
+          this.articles = [];
           axios
             .get("/api/articles", function(response) {})
             .then(function(response) {
@@ -59,9 +60,17 @@ export default {
         clearArticles: function() {
           this.articles = [];
         },
-        saveArticle: function() {
-          axios.put("/api/saveArticle/:id", function(response) {})
-          console.log(this.articles[0]._id)
+        saveArticle: function(articleid, event) {
+          axios.put("/api/saveArticle/"+articleid, function(response) {})
+          .then(function(response) {
+            console.log(articleid);
+            console.log(JSON.stringify(response));
+            
+          })
+          .catch(function(err) {
+            console.log(err);
+          })
+          this.renderArticles()
         }
       },
       computed: {
