@@ -2,7 +2,7 @@
   <div class="navbar">
     <v-toolbar color="light-blue darken-4" dark>
       <v-toolbar-side-icon class="hidden-md-and-up"></v-toolbar-side-icon>
-      <v-toolbar-title>GameSpot Mongo Scraper</v-toolbar-title>
+      <v-toolbar-title>Space.com Mongo Scraper</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">
 
