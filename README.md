@@ -21,7 +21,7 @@ Once scraped, each article has three buttons available.
 * "Save" - Saves the article and prevents it from being deleted when the "Clear Articles" button is used.
 * "Delete" - Deletes the article from the database and removes it from the page.
 
-When viewing the saved articles, there are different options available.  In the place of the "Save" button, there is an "Add Comment" button.  Currently the comments have not been emplemented so this is just a placeholder. This functionality will be added at a later time.  Once a comment has been entered into the text field, the comment will appear at the bottom of the card.  
+When viewing the saved articles, there are different options available.  In the place of the "Save" button, there is an "Add Comment" button.  Currently the comments have not been implemented so this is just a placeholder. This functionality will be added at a later time.  Once a comment has been entered into the text field, the comment will appear at the bottom of the card.  
 
 ### This project uses the following technologies
 
