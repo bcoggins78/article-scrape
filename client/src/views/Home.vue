@@ -17,10 +17,10 @@
             </v-card-title>
 
             <v-card-actions>
-              <v-btn flat :href="article.url" color="blue" target="_blank"><v-icon class="mr-1">open_in_browser</v-icon>Open Article</v-btn>
-              <v-btn @click="saveArticle(article._id)" flat color="green"><v-icon class="mr-1">save</v-icon>  Save Article</v-btn>
+              <v-btn flat :href="article.url" color="blue" target="_blank"><v-icon class="mr-1">open_in_browser</v-icon>Open</v-btn>
+              <v-btn @click="saveArticle(article._id)" flat color="green"><v-icon class="mr-1">save</v-icon>Save</v-btn>
               <v-spacer></v-spacer>
-              <v-btn @click="deleteArticle(article._id)" flat color="red"><v-icon class="mr-1">clear</v-icon>Delete Article</v-btn>
+              <v-btn @click="deleteArticle(article._id)" flat color="red"><v-icon class="mr-1">clear</v-icon>Delete</v-btn>
             </v-card-actions>
                
           </v-card>

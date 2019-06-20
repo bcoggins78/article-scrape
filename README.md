@@ -2,6 +2,8 @@
 
 ### UNC Coding Bootcamp Week 18 Homework Project
 
+[Link to Deployed App](https://arcane-garden-12409.herokuapp.com)
+
 The Space.com Mongo Scraper is a full-stack app that scrapes the Space.com news website, grabs specific elements from each article and then stores them in a MongoDB database.  Once the data has been collected, the articles can displayed in the app.
 
 #### Instructions
@@ -15,9 +17,9 @@ There are four buttons on the navigation bar.
 
 Once scraped, each article has three buttons available.
 
-* "Open Article" - Opens the site article in a new tab.
-* "Save Article" - Saves the article and prevents it from being deleted when the "Clear Articles" button is used.
-* "Delete Article" - Deletes the article from the database and removes it from the page.
+* "Open" - Opens the site article in a new tab.
+* "Save" - Saves the article and prevents it from being deleted when the "Clear Articles" button is used.
+* "Delete" - Deletes the article from the database and removes it from the page.
 
 When viewing the saved articles, there are different options available.  In the place of the "Save Article" button, there is an "Add Comment" button.  Currently the comments have not been emplemented so this is just a placeholder. This functionality will be added at a later time.  Once a comment has been entered into the text field, the comment will appear at the bottom of the card.  
 

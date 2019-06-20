@@ -18,17 +18,18 @@
 
             <v-card-actions>
               <v-btn flat :href="article.url" color="blue" target="_blank">
-                <v-icon class="mr-1">open_in_browser</v-icon>Open Article
+                <v-icon class="mr-1">open_in_browser</v-icon>Open
               </v-btn>
               <v-btn flat color="purple">
                 <v-icon class="mr-1">assignment</v-icon>Add Comment
               </v-btn>
               <v-spacer></v-spacer>
               <v-btn @click="deleteArticle(article._id)" flat color="red">
-                <v-icon class="mr-1">clear</v-icon>Delete Article
+                <v-icon class="mr-1">clear</v-icon>Delete
               </v-btn>
             </v-card-actions>
-            <!-- This is a placeholder for the comments section, currently not emplemented -->
+            <!-- This is a placeholder for the comments section, currently not emplemented.  Data from the comment would be included
+            in the loop so any comments would appear on each article -->
             <v-card-title>
               <div>
                 <form>
@@ -100,6 +101,9 @@ export default {
       // When deleting an article, it would still be visible if the page was re-rendered
       // too quickly.  Added a timeout of 1 second to give DB time to remove
       setTimeout(() => this.renderArticles(), 1000);
+    },
+    addComment: function() {
+      // Placeholder method that would add the comment to each associated article
     }
   }
 };
