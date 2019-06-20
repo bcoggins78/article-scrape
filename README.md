@@ -1,29 +1,43 @@
-# Create Vue Express App
+# Space.com Mongo Scraper
 
-## About This Boilerplate
+### UNC Coding Bootcamp Week 18 Homework Project
 
-This setup allows for a Node/Express/Vue app which can be easily deployed to Heroku.
+The Space.com Mongo Scraper is a full-stack app that scrapes the Space.com news website, grabs specific elements from each article and then stores them in a MongoDB database.  Once the data has been collected, the articles can displayed in the app.
 
-The front-end Vue app will auto-reload as it's updated via webpack dev server, and the backend Express app will auto-reload independently with nodemon.
+#### Instructions
 
-## Starting the app locally
+There are four buttons on the navigation bar.
 
-Start by installing front and backend dependencies. While in this directory, run the following command:
+* "Home" - Takes you to the main page.
+* "Saved Articles" - Displays articles that the user has selected to save.
+* "Scrape New Articles" - Scrapes the website and pulls in new articles, sending them to the database.
+* "Clear Articles" - Deletes all unsaved articles from the database and clears the screen.
 
-```
-npm install
-```
+Once scraped, each article has three buttons available.
 
-This should install node modules within the server and the client folder.
+* "Open Article" - Opens the site article in a new tab.
+* "Save Article" - Saves the article and prevents it from being deleted when the "Clear Articles" button is used.
+* "Delete Article" - Deletes the article from the database and removes it from the page.
 
-After both installations complete, run the following command in your terminal:
+When viewing the saved articles, there are different options available.  In the place of the "Save Article" button, there is an "Add Comment" button.  Currently the comments have not been emplemented so this is just a placeholder. This functionality will be added at a later time.  Once a comment has been entered into the text field, the comment will appear at the bottom of the card.  
 
-```
-npm start
-```
+### This project uses the following technologies
 
-Your app should now be running on <http://localhost:3000>. The Express server should intercept any AJAX requests from the client.
+#### Front-End
+* Vue.js framework
+* Vue-router
+* Vuetify.js
+* HTML5
+* CSS3
+* JavaScript
+* Axios
 
-## Deployment (Heroku)
+#### Back-End
+* Node.js
+* Express.js
+* Mongoose
+* Cheerio
+* Morgan
+* Axios
 
-To deploy, simply add and commit your changes, and push to Heroku. As is, the NPM scripts should take care of the rest.
+![screenshot](https://github.com/bcoggins78/article-scrape/blob/master/client/src/assets/screenshot.jpg)
