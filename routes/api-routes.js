@@ -4,8 +4,6 @@ const axios = require("axios");
 var express = require("express")
 var router = express.Router();
 
-
-
     // Scrape the space.com website and add articles to MongoDB
     router.get("/scrape", function (req, res) {
 
