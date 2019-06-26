@@ -20,7 +20,7 @@
               <v-btn flat :href="article.url" color="blue" target="_blank">
                 <v-icon class="mr-1">open_in_browser</v-icon>Open
               </v-btn>
-              <v-btn flat color="purple">
+              <v-btn @click="addComment(article._id)" flat color="purple">
                 <v-icon class="mr-1">assignment</v-icon>Add Comment
               </v-btn>
               <v-spacer></v-spacer>
@@ -33,7 +33,7 @@
             <v-card-title>
               <div>
                 <form>
-                  <v-text-field :counter="125" label="Comments not available yet" required></v-text-field>
+                  <v-text-field :counter="125" v-model="form.comments" label="Comments not available yet" required></v-text-field>
                 </form>
                 <h4>Comments Placeholder</h4>
                 <div>Look again at that dot. That's here. That's home. That's us. On it everyone you love, everyone you know, 
@@ -62,20 +62,23 @@ export default {
   },
   // Renders the articles when the component loads
   mounted() {
-    this.renderArticles();
+    this.renderSavedArticles();
   },
   data() {
     return {
-      articles: [] // Array to hold state for all articles
+      articles: [], // Array to hold state for all articles
+      form: {
+        comment: ''
+      }
     };
   },
   methods: {
     // Method to pull articles from DB and render them on the page
-    renderArticles: function() {
+    renderSavedArticles: function() {
       this.articles = [];
       var art = this;
       axios
-        .get("/api/articles", function(response) {})
+        .get("/api/savedArticles", function(response) {})
         .then(function(response) {
           console.log(response);
           art.articles = art.articles.concat(response.data);
@@ -100,9 +103,10 @@ export default {
         });
       // When deleting an article, it would still be visible if the page was re-rendered
       // too quickly.  Added a timeout of 1 second to give DB time to remove
-      setTimeout(() => this.renderArticles(), 1000);
+      setTimeout(() => this.renderSavedArticles(), 1000);
     },
-    addComment: function() {
+    addComment: function(articleid) {
+      console.log("The add comment button was clicked, Article ID is:" + articleid)
       // Placeholder method that would add the comment to each associated article
     }
   }

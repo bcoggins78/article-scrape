@@ -1,7 +1,7 @@
 <template>
   <div class="home">
-    <!-- Listens for event from the navbar component for when the renderArticles and clearArticles methods are callsed -->
-    <Navbar @render='renderArticles' @clear='clearArticles'></Navbar>
+    <!-- Listens for event from the navbar component for when the renderUnSavedArticles and clearArticles methods are callsed -->
+    <Navbar @render='renderUnSavedArticles' @clear='clearArticles'></Navbar>
     <v-container class="my-5">
       <v-layout wrap>
         <!-- Loop that displays the card for each article -->
@@ -40,7 +40,7 @@ export default {
   },
   // Renders article when the component loads
   mounted() {
-    this.renderArticles();
+    this.renderUnSavedArticles();
   },
   data() {
     return {
@@ -49,11 +49,11 @@ export default {
   },
   methods: {
         // Method to pull articles from DB and render them on the page
-        renderArticles: function() {
+        renderUnSavedArticles: function() {
           var art = this;
           this.articles = [];
           axios
-            .get("/api/articles", function(response) {})
+            .get("/api/unSavedArticles", function(response) {})
             .then(function(response) {
               console.log(response);
               art.articles = art.articles.concat(response.data);
@@ -75,7 +75,7 @@ export default {
           .catch(function(err) {
             console.log(err);
           })
-          setTimeout(() => this.renderArticles(), 1000);
+          setTimeout(() => this.renderUnSavedArticles(), 1000);
         },
         // Method to delete the specific article
         deleteArticle: function(articleid, event) {
@@ -88,7 +88,7 @@ export default {
           })
           // When deleting an article, it would still be visible if the page was re-rendered
           // too quickly.  Added a timeout of 1 second to give DB time to remove
-          setTimeout(() => this.renderArticles(), 1000);
+          setTimeout(() => this.renderUnSavedArticles(), 1000);
         }
       }
 };

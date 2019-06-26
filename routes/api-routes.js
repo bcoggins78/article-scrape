@@ -33,10 +33,10 @@ var router = express.Router();
         });
     });
 
-    // Retrieve articles from MongoDB
-    router.get("/api/articles", function(req, res) {
+    // Retrieve unsaved articles from MongoDB
+    router.get("/api/unSavedArticles", function(req, res) {
 
-        db.Article.find({})
+        db.Article.find({ saved: false })
             .then(function(dbArticle) {
                 res.json(dbArticle);
             })
@@ -44,6 +44,19 @@ var router = express.Router();
                 res.json(err);
             });
     });
+
+    // Retrieve saved articles from MongoDB
+    router.get("/api/savedArticles", function(req, res) {
+
+        db.Article.find({ saved: true })
+            .then(function(dbArticle) {
+                res.json(dbArticle);
+            })
+            .catch(function(err) {
+                res.json(err);
+            });
+    });
+
 
     // Route to delete all un-saved articles
     router.delete('/api/deleteArticles', (req, res) => {
