@@ -6,7 +6,7 @@ var router = express.Router();
 
 
 
-    // Scrapte the space.com website and add articles to MongoDB
+    // Scrape the space.com website and add articles to MongoDB
     router.get("/scrape", function (req, res) {
 
         axios.get("https://www.space.com/news").then(function (response) {
@@ -49,6 +49,7 @@ var router = express.Router();
     router.get("/api/savedArticles", function(req, res) {
 
         db.Article.find({ saved: true })
+            .populate("comment")
             .then(function(dbArticle) {
                 res.json(dbArticle);
             })
@@ -56,8 +57,7 @@ var router = express.Router();
                 res.json(err);
             });
     });
-
-
+    
     // Route to delete all un-saved articles
     router.delete('/api/deleteArticles', (req, res) => {
         
@@ -86,7 +86,7 @@ var router = express.Router();
     });
 
     // Route to create a new comment for a specific article
-    router.post("/articles/:id", function(req, res) {
+    router.post("/api/addComment/:id", function(req, res) {
         db.Comment.create(req.body)
           .then(function(dbComment) {
             return db.Article.findOneAndUpdate({ _id: req.params.id }, { comment: dbComment._id }, { new: true });

@@ -15,12 +15,13 @@
                 <span class="grey--text">{{ article.desc }}</span>
               </div>
             </v-card-title>
-
+            <!-- Form to submit the comment to the DB -->
+            <form @submit.prevent="addComment(article._id, form.comment)">
             <v-card-actions>
               <v-btn flat :href="article.url" color="blue" target="_blank">
                 <v-icon class="mr-1">open_in_browser</v-icon>Open
               </v-btn>
-              <v-btn @click="addComment(article._id)" flat color="purple">
+              <v-btn type="submit" flat color="purple">
                 <v-icon class="mr-1">assignment</v-icon>Add Comment
               </v-btn>
               <v-spacer></v-spacer>
@@ -28,23 +29,19 @@
                 <v-icon class="mr-1">clear</v-icon>Delete
               </v-btn>
             </v-card-actions>
-            <!-- This is a placeholder for the comments section, currently not emplemented.  Data from the comment would be included
-            in the loop so any comments would appear on each article -->
             <v-card-title>
               <div>
                 <form>
-                  <v-text-field :counter="125" v-model="form.comments" label="Comments not available yet" required></v-text-field>
+                  <v-text-field full-width :counter="1000" v-model="form.comment" prepend-inner-icon="textsms" label="Add Comment" outline required></v-text-field>
                 </form>
-                <h4>Comments Placeholder</h4>
-                <div>Look again at that dot. That's here. That's home. That's us. On it everyone you love, everyone you know, 
-                  everyone you ever heard of, every human being who ever was, lived out their lives. The aggregate of our joy 
-                  and suffering, thousands of confident religions, ideologies, and economic doctrines, every hunter and forager, 
-                  every hero and coward, every creator and destroyer of civilization, every king and peasant, every young couple 
-                  in love, every mother and father, hopeful child, inventor and explorer, every teacher of morals, every corrupt 
-                  politician, every "superstar," every "supreme leader," every saint and sinner in the history of our species lived 
-                  there--on a mote of dust suspended in a sunbeam. -- Carl Sagan</div>
+                <v-spacer></v-spacer>
+                <h4>Comments</h4>
+                <hr>
+                <div v-if="article.comment">{{ article.comment.body }}</div>
+                <div v-else >No Comments Added</div>
               </div>
             </v-card-title>
+            </form>
           </v-card>
         </v-flex>
       </v-layout>
@@ -106,9 +103,20 @@ export default {
       setTimeout(() => this.renderSavedArticles(), 1000);
     },
     addComment: function(articleid) {
-      console.log("The add comment button was clicked, Article ID is:" + articleid)
+      console.log("The add comment button was clicked, Article ID is:" + articleid + " Comment: " + this.form.comment)
       // Placeholder method that would add the comment to each associated article
-    }
+      let comment = this.form.comment
+      axios.post("/api/addComment/"+articleid, { body: comment })
+      .then(function(response) {
+        console.log("This comment was saved: " + JSON.stringify(comment));
+      })
+      .catch(function(err) {
+        console.log(err);
+      })
+      setTimeout(() => this.renderSavedArticles(), 1000);
+      this.form.comment = ''
+    },
+    
   }
 };
 </script>
