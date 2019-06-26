@@ -5,10 +5,8 @@
       <v-layout wrap>
         <!-- loop for displaying a card for each article -->
         <v-flex xs12 xm6 class="mt-5" v-for="article in articles" :key="article._id">
-          <v-card v-if="article.saved">
-            <!-- only shows the article if it is "Saved" -->
+          <v-card>
             <v-img :src="article.img" height="200" width="400"></v-img>
-
             <v-card-title primary-title>
               <div>
                 <div class="headline">{{ article.title}}</div>
@@ -17,30 +15,39 @@
             </v-card-title>
             <!-- Form to submit the comment to the DB -->
             <form @submit.prevent="addComment(article._id, form.comment)">
-            <v-card-actions>
-              <v-btn flat :href="article.url" color="blue" target="_blank">
-                <v-icon class="mr-1">open_in_browser</v-icon>Open
-              </v-btn>
-              <v-btn type="submit" flat color="purple">
-                <v-icon class="mr-1">assignment</v-icon>Add Comment
-              </v-btn>
-              <v-spacer></v-spacer>
-              <v-btn @click="deleteArticle(article._id)" flat color="red">
-                <v-icon class="mr-1">clear</v-icon>Delete
-              </v-btn>
-            </v-card-actions>
-            <v-card-title>
-              <div>
-                <form>
-                  <v-text-field full-width :counter="1000" v-model="form.comment" prepend-inner-icon="textsms" label="Add Comment" outline required></v-text-field>
-                </form>
+              <v-card-actions>
+                <v-btn flat :href="article.url" color="blue" target="_blank">
+                  <v-icon class="mr-1">open_in_browser</v-icon>Open
+                </v-btn>
+                <v-btn type="submit" flat color="purple">
+                  <v-icon class="mr-1">assignment</v-icon>Add Comment
+                </v-btn>
                 <v-spacer></v-spacer>
-                <h4>Comments</h4>
-                <hr>
-                <div v-if="article.comment">{{ article.comment.body }}</div>
-                <div v-else >No Comments Added</div>
-              </div>
-            </v-card-title>
+                <v-btn @click="deleteArticle(article._id)" flat color="red">
+                  <v-icon class="mr-1">clear</v-icon>Delete
+                </v-btn>
+              </v-card-actions>
+              <v-card-title>
+                <div class="comment-form">
+                    <v-textarea
+                      class="comment-input"
+                      v-model="form.comment"
+                      prepend-inner-icon="create"
+                      label="Type Comment Here..."
+                      required
+                      auto-grow
+                      solo
+                    ></v-textarea>
+                  <h3>Comment</h3>
+                </div>
+              </v-card-title>
+              <v-card-title>
+                <div class="comment-text">
+                  <!-- <h3>Comment</h3> -->
+                  <div class = "comment-seperator" v-if="article.comment">{{ article.comment.body }}</div>
+                  <div class = "comment-seperator" v-else>No Comments Added                              </div>
+                </div>
+              </v-card-title>
             </form>
           </v-card>
         </v-flex>
@@ -65,7 +72,7 @@ export default {
     return {
       articles: [], // Array to hold state for all articles
       form: {
-        comment: ''
+        comment: ""
       }
     };
   },
@@ -103,21 +110,39 @@ export default {
       setTimeout(() => this.renderSavedArticles(), 1000);
     },
     addComment: function(articleid) {
-      console.log("The add comment button was clicked, Article ID is:" + articleid + " Comment: " + this.form.comment)
+      console.log(
+        "The add comment button was clicked, Article ID is:" +
+          articleid +
+          " Comment: " +
+          this.form.comment
+      );
       // Placeholder method that would add the comment to each associated article
-      let comment = this.form.comment
-      axios.post("/api/addComment/"+articleid, { body: comment })
-      .then(function(response) {
-        console.log("This comment was saved: " + JSON.stringify(comment));
-      })
-      .catch(function(err) {
-        console.log(err);
-      })
+      let comment = this.form.comment;
+      axios
+        .post("/api/addComment/" + articleid, { body: comment })
+        .then(function(response) {
+          console.log("This comment was saved: " + JSON.stringify(comment));
+        })
+        .catch(function(err) {
+          console.log(err);
+        });
       setTimeout(() => this.renderSavedArticles(), 1000);
-      this.form.comment = ''
-    },
-    
+      this.form.comment = "";
+    }
   }
 };
 </script>
+
+<style scoped>
+
+.comment-form {
+  border-bottom: solid black 2px;
+  width: 100%
+}
+
+.comment-text {
+  margin-bottom: 15px;
+}
+
+</style>
 

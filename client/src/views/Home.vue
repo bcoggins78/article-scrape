@@ -6,23 +6,20 @@
       <v-layout wrap>
         <!-- Loop that displays the card for each article -->
         <v-flex xs12 xm6 class="mb-5" v-for="article in articles" :key="article.title">
-          <v-card v-if="article.saved === false"> <!-- does not display any article set as saved -->
+          <v-card>
             <v-img :src="article.img" height="200" width="400"></v-img>
-
             <v-card-title primary-title>
               <div>
                 <div class="headline">{{ article.title}}</div>
                 <span class="grey--text">{{ article.desc }}</span>
               </div>
             </v-card-title>
-
             <v-card-actions>
               <v-btn flat :href="article.url" color="blue" target="_blank"><v-icon class="mr-1">open_in_browser</v-icon>Open</v-btn>
               <v-btn @click="saveArticle(article._id)" flat color="green"><v-icon class="mr-1">save</v-icon>Save</v-btn>
               <v-spacer></v-spacer>
               <v-btn @click="deleteArticle(article._id)" flat color="red"><v-icon class="mr-1">clear</v-icon>Delete</v-btn>
             </v-card-actions>
-               
           </v-card>
         </v-flex>
       </v-layout>
